@@ -30,9 +30,6 @@ To compile your own iothub_client.so library follow these instructions.
 4. [Compile Azure IoT Python Libraries](https://github.com/Azure/azure-iot-sdks/blob/master/doc/get_started/python-devbox-setup.md#linux)
 
 
-## Required Software
-
-1. [Azure IoT SDK Installation](https://github.com/Azure/azure-iot-sdks/blob/master/doc/get_started/python-devbox-setup.md)
 
 
 
