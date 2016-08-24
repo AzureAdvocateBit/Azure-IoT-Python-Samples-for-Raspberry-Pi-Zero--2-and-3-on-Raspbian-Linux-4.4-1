@@ -20,7 +20,21 @@ Optional but useful, these samples are built using the following HATS.
 
 ## Process to build the IOT SDK for Rasbian Linux
 
-As at August 2016 the samples include the compiled iothub_client.so library for ARM V6 (Pi Zero) and V7 (Pi 2 and 3).
+As at August 2016 the samples include the compiled iothub_client.so library for ARM V6 (Pi Zero) and V7 (Pi 2 and 3). But you still need to install the Azure SDK Python prerequisites. 
+
+Follow these steps to  install the Azure SDK Python prerequisites :-
+
+    git clone --recursive https://github.com/Azure/azure-iot-sdks.git
+    cd azure-iot-sdks/python/build_all/linux/
+
+For Python 2.7 support
+
+    ./setup
+
+For Python 3.4 support  
+
+    ./setup.sh --python-version 3.4
+
 
 To compile your own iothub_client.so library follow these instructions. 
 
