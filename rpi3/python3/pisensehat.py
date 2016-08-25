@@ -45,7 +45,7 @@ connection_string = "HostName=IoTCampAU.azure-devices.net;DeviceId=rpi3dg;Shared
 msg_txt = "{\"Geo\": \"Sydney\",\"Humidity\":%d,\"HPa\":%d,\"Light\":%d,\"Celsius\": %.2f,\"Id\":%d}"
 
 sense = SenseHat()
-
+pubColour = (255,0,255)
 
 # some embedded platforms need certificate information
 def set_certificates(iotHubClient):
@@ -115,6 +115,8 @@ def iothub_client_sample_run():
     while True:
         try:
    
+            sense.clear(pubColour)
+
             ## normalise light to something of 100%
             lightLevel = 0;
             
@@ -126,7 +128,11 @@ def iothub_client_sample_run():
         
             iotHubClient.send_event_async(message, send_confirmation_callback, id)
             
-            time.sleep(5)
+            time.sleep(1);
+
+            sense.clear()
+
+            time.sleep(4)
 
         except IoTHubError as e:
             print("Unexpected error %s from IoTHub" % e)

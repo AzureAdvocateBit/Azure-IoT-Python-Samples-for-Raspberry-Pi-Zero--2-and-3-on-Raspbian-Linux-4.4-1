@@ -4,12 +4,23 @@
 # Licensed under the MIT license. See LICENSE file in the project root for
 # full license information.
 
+# Weather from https://github.com/csparpa/pyowm
+# pip and pip3 install pyowm
+
+
 import random
 import time
 import sys
 import iothub_client
 from iothub_client import *
 from iothub_client_args import *
+import pyowm
+import json
+
+temperature = 0
+humidity = 0
+pressure = 0
+owm = pyowm.OWM('c204bb28a2f9dc23925f27b9e21296dd')  # You MUST provide a valid API key
 
 
 # HTTP options
@@ -40,9 +51,31 @@ protocol = IoTHubTransportProvider.AMQP
 
 # String containing Hostname, Device Id & Device Key in the format:
 # "HostName=<host_name>;DeviceId=<device_id>;SharedAccessKey=<device_key>"
-connection_string = "HostName=IoTCampAU.azure-devices.net;DeviceId=pizero;SharedAccessKey=uJ21qp9LUvlOSipkXusvlRoYwmUDE+4gXyIYS00feZg="
+connection_string = "HostName=IoTCampAU.azure-devices.net;DeviceId=UbuntuSB4;SharedAccessKey=ATLRGx7qgUOwCIT1o3l2XJTidEyQmD7fSpKGZfrGViw="
 
-msg_txt = "{\"Geo\": \"Sydney\",\"Humidity\":0,\"HPa\":%d,\"Light\":%d,\"Celsius\": %.2f,\"Id\":%d}"
+msg_txt = "{\"Geo\": \"Sydney\",\"Humidity\":%d,\"HPa\":%d,\"Light\":%d,\"Celsius\": %.2f,\"Id\":%d}"
+
+def getWeather():
+    global temperature
+    global humidity
+    global pressure
+
+    observation = owm.weather_at_place('Sydney,au')
+    w = observation.get_weather()
+
+    temp = w.get_temperature('celsius')
+    humidity = w.get_humidity()
+    press = w.get_pressure()
+
+    j = json.dumps(temp)
+    o = json.loads(j)
+    temperature = o['temp']
+
+    j = json.dumps(press)
+    o = json.loads(j)
+    pressure = o['press']
+
+
 
 # some embedded platforms need certificate information
 def set_certificates(iotHubClient):
@@ -111,7 +144,7 @@ def iothub_client_sample_run():
 
     while True:
         try:
-
+            getWeather()
             ## normalise light to something of 100%
             lightLevel = 500
             if lightLevel > 1024:
@@ -120,13 +153,13 @@ def iothub_client_sample_run():
 
             id += 1
 
-            msg_txt_formatted = msg_txt % (1020, 70, 21.5, id)
+            msg_txt_formatted = msg_txt % (humidity, pressure, 50, temperature, id)
 
             message = IoTHubMessage(bytearray(msg_txt_formatted, 'utf8'))
         
             iotHubClient.send_event_async(message, send_confirmation_callback, id)
             
-            time.sleep(4)
+            time.sleep(10)
 
         except IoTHubError as e:
             print("Unexpected error %s from IoTHub" % e)
