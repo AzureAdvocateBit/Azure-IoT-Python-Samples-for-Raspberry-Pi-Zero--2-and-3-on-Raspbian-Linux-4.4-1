@@ -20,6 +20,7 @@ import json
 temperature = 0
 humidity = 0
 pressure = 0
+lastWeatherRequest = time.time() - 60000
 owm = pyowm.OWM('c204bb28a2f9dc23925f27b9e21296dd')  # You MUST provide a valid API key
 
 
@@ -59,21 +60,26 @@ def getWeather():
     global temperature
     global humidity
     global pressure
+    global lastWeatherRequest
+
     try:
-        observation = owm.weather_at_place('Sydney,au')
-        w = observation.get_weather()
+        if lastWeatherRequest + 60 < time.time():
+            lastWeatherRequest = time.time()
+            
+            observation = owm.weather_at_place('Sydney,au')
+            w = observation.get_weather()
 
-        temp = w.get_temperature('celsius')
-        humidity = w.get_humidity()
-        press = w.get_pressure()
+            temp = w.get_temperature('celsius')
+            humidity = w.get_humidity()
+            press = w.get_pressure()
 
-        j = json.dumps(temp)
-        o = json.loads(j)
-        temperature = o['temp']
+            j = json.dumps(temp)
+            o = json.loads(j)
+            temperature = o['temp']
 
-        j = json.dumps(press)
-        o = json.loads(j)
-        pressure = o['press']
+            j = json.dumps(press)
+            o = json.loads(j)
+            pressure = o['press']
     except:
         print("open weather call failed")
 
