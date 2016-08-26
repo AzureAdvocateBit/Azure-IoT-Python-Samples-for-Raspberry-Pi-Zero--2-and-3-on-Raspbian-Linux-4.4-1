@@ -59,22 +59,23 @@ def getWeather():
     global temperature
     global humidity
     global pressure
+    try:
+        observation = owm.weather_at_place('Sydney,au')
+        w = observation.get_weather()
 
-    observation = owm.weather_at_place('Sydney,au')
-    w = observation.get_weather()
+        temp = w.get_temperature('celsius')
+        humidity = w.get_humidity()
+        press = w.get_pressure()
 
-    temp = w.get_temperature('celsius')
-    humidity = w.get_humidity()
-    press = w.get_pressure()
+        j = json.dumps(temp)
+        o = json.loads(j)
+        temperature = o['temp']
 
-    j = json.dumps(temp)
-    o = json.loads(j)
-    temperature = o['temp']
-
-    j = json.dumps(press)
-    o = json.loads(j)
-    pressure = o['press']
-
+        j = json.dumps(press)
+        o = json.loads(j)
+        pressure = o['press']
+    except:
+        print("open weather call failed")
 
 
 # some embedded platforms need certificate information
