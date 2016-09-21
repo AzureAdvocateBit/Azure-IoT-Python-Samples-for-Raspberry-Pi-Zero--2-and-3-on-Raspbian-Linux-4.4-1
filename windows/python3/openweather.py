@@ -13,9 +13,9 @@ import time
 import owm 
 import iothub
 
-sensorLocation = "Sydney"
-owmLocation = 'Sydney,AU'
-iothubConnectionString = 'HostName=IoTCampAU.azure-devices.net;DeviceId=UbuntuPython34;SharedAccessKey=32JQMI0quRp69GEosVSUF2tkdq5r0nzi2lPAn1rZckY='
+sensorLocation = "Melbourne"
+owmLocation = 'Melbourne,AU'
+iothubConnectionString = 'HostName=IoTCampAU.azure-devices.net;DeviceId=WindowsPython35;SharedAccessKey=GqtVoi57XA3oViEWvHJSX9QNBHho9H747AtgjUdxh1Q='
 openWeather = owm.Weather('c204bb28a2f9dc23925f27b9e21296dd', owmLocation)
 iot = iothub.IotHub(iothubConnectionString)
 msg_txt = "{\"Geo\":%s,\"Humidity\":%d,\"HPa\":%d,\"Celsius\": %.2f,\"Id\":%d}"
