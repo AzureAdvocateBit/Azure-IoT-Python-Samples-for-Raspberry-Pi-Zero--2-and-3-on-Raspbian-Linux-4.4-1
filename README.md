@@ -1,42 +1,49 @@
 # Rasperry Pi Rasbian Linux and Azure IoT Hub Secure Sensor Data Streaming
 
 
-Rasperry Pi Rasbian and Azure IoT hub Sensor Streaming Samples
+Rasperry Pi Rasbian Linux, Ubuntu and Windows 10 Python Azure IoT hub Sensor Streaming Samples
 
 
-## Hardware Required
+As at September 2016 samples are built on Azure IoT SDK 1.0.15.
 
-As at August 2016
+# Tested Configurations
 
-1. Raspberry Pi Zero, Raspberry Pi 2 or 3
-1. Tested on Raspbian Kernel 4.4 fully patched
 
-## HATS (Hardware Attached on Top)
+1. Raspberry Pi Zero, Raspbian Kernel 4.4 fully patched
+    * Python 3.4
+    * [Enviro pHAT](https://shop.pimoroni.com/products/enviro-phat) for temperature, barometric, and light sensing
+2. Raspberry Pi 2 and 3. Tested on Raspbian Kernel 4.4 fully patched
+    * Python 3.4
+    * [Raspberry Pi Sense HAT](https://www.raspberrypi.org/products/sense-hat/)
+3. Windows (10) Subsystem for Linux Python 3.4
+    * Python 3.4 
+    * Open Weather Map Data 
+4. Windows 10 
+    * Python 3.5
+    * Open Weather Map Data
 
-Optional but useful, these samples are built using the following HATS. 
+# Azure IoT SDK Python Prequisites
 
-1. [Enviro pHAT](https://shop.pimoroni.com/products/enviro-phat) for temperature, barometric, and light sensing
-1. [Raspberry Pi Sense HAT](https://www.raspberrypi.org/products/sense-hat/)
+## Linux Azure SDK Python Prequisites
 
-## Process to build the IOT SDK for Rasbian Linux
+The samples include the compiled iothub_client.so library for ARM V6 (Pi Zero),  V7 (Pi 2 and 3) and Ubuntu X64. 
+But you still need to install the Azure SDK Python prerequisites. 
 
-As at August 2016 the samples include the compiled iothub_client.so library for ARM V6 (Pi Zero) and V7 (Pi 2 and 3). But you still need to install the Azure SDK Python prerequisites. 
-
-Follow these steps to  install the Azure SDK Python prerequisites :-
+Follow these steps to install the Azure SDK Python prerequisites :-
 
     git clone --recursive https://github.com/Azure/azure-iot-sdks.git
     cd azure-iot-sdks/python/build_all/linux/
-
-For Python 2.7 support
-
-    ./setup
-
-For Python 3.4 support  
-
     ./setup.sh --python-version 3.4
 
+## Windows
+
+No additional software required.
+
+# Compiling the Azure IoT SDK 
 
 To compile your own iothub_client.so library follow these instructions. 
+
+Note you should allocate in the order or 5 to 6 hours to compile the Azure IoT SDK on the Raspberry Pi Zero.
 
 1. Increase Raspberry Pi Swap File size - see notes below
 2. [Overview of preparing your Python Development Environment](https://github.com/Azure/azure-iot-sdks/blob/master/doc/get_started/python-devbox-setup.md)
@@ -47,7 +54,7 @@ To compile your own iothub_client.so library follow these instructions.
 
 
 
-## Recommended Software
+# Recommended Software
 
 1. To find your Raspberry Pi on your network by name install [Apple Print Bonjour Service](https://support.apple.com/kb/dl999?locale=en_AU) on Windows for mDNS UNIX Name Resolution. .
 2. My favourite SSH and SFTP Windows Client is [Bitvise](https://www.bitvise.com/)
@@ -85,7 +92,7 @@ The default value in Raspbian is:
 
 Change this to:
 
-    CONF_SWAPSIZE=1024
+    CONF_SWAPSIZE=2048
 
 Save changes
 
