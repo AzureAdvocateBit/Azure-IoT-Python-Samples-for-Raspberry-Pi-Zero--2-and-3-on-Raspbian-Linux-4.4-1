@@ -21,6 +21,9 @@ class Weather():
     _cacheSeconds = 0
     _lastWeatherRequest = time.time() - 60000
    
+    def config(self):
+        print('Open Weather Map Loaction: ' + self.owmLocation)
+
 
     def getWeather(self):
         try:

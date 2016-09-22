@@ -5,5 +5,7 @@ sleep 10
 
 sudo killall python3
 
-python3 /home/pi/iothub/rpi3/python3/pisensehat.py&
+cd /home/pi/iothub/rpi2
+
+python3 weather.py&
 

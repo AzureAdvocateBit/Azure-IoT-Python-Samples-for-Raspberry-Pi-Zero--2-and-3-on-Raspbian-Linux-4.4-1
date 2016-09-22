@@ -5,17 +5,22 @@
 # full license information.
 
 # Weather from https://github.com/csparpa/pyowm
-# pip and pip3 install pyowm
+# pip3 install pyowm
 
 import iothub_client
 from iothub_client import *
 import time
+import sys
+
+sys.path[0:0] = ['../common'] ## path to shared owm.py (open weather map) and iothub.py (azure iot hub python) files
+
 import owm 
 import iothub
 
-sensorLocation = "Sydney"
-owmLocation = 'Sydney,AU'
-iothubConnectionString = 'HostName=IoTCampAU.azure-devices.net;DeviceId=UbuntuPython34;SharedAccessKey=32JQMI0quRp69GEosVSUF2tkdq5r0nzi2lPAn1rZckY='
+
+sensorLocation = "Melbourne"
+owmLocation = 'Melbourne,AU'
+iothubConnectionString = 'HostName=IoTCampAU.azure-devices.net;DeviceId=WindowsPython35;SharedAccessKey=GqtVoi57XA3oViEWvHJSX9QNBHho9H747AtgjUdxh1Q='
 openWeather = owm.Weather('c204bb28a2f9dc23925f27b9e21296dd', owmLocation)
 iot = iothub.IotHub(iothubConnectionString)
 msg_txt = "{\"Geo\":%s,\"Humidity\":%d,\"HPa\":%d,\"Celsius\": %.2f,\"Id\":%d}"
@@ -50,15 +55,15 @@ def iothub_client_sample_run():
             print("IoTHubClient sample stopped")
             return
 
-
-if __name__ == '__main__':
+def configInfo():
     iot.version()
-    print('Azure IoT Hub Connection String')
-    print(iothubConnectionString)
-    print()
-    print('Open Weather Map Loaction: ' + owmLocation)
+    openWeather.config()
     print('Sensor Location: ' + sensorLocation)
+    print()
     print("Starting the Open Weather Map Azure IoT Hub Python sample...")
     print()
 
+
+if __name__ == '__main__':
+    configInfo()
     iothub_client_sample_run()

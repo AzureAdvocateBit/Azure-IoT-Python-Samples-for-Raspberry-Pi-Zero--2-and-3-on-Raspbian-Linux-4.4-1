@@ -1,6 +1,5 @@
 import iothub_client
 from iothub_client import *
-from iothub_client_args import *
 import sys
 
 
@@ -37,6 +36,9 @@ class IotHub():
         print()
         print("Protocol %s" % self.protocol)
         print()
+        print('Azure IoT Hub Connection String')
+        print(self.connection_string)
+
 
     def send_confirmation_callback(self, message, result, user_context):
         print("Confirmation[%d] received for message with result = %s" % (user_context, result))
