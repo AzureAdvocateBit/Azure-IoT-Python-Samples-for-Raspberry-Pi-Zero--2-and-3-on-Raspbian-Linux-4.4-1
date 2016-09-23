@@ -92,7 +92,7 @@ client.on_publish = on_publish
 client.username_pw_set(hubUser, generate_sas_token(endpoint, SharedAccessKey))
 
 #client.tls_set("ca-certificates.crt") # use builtin cert on Raspbian
-client.tls_set("baltimoreBase64.cer") # Baltimore Cybertrust Root exported using certlm.msc in base64 format
+client.tls_set("baltimorebase64.cer") # Baltimore Cybertrust Root exported using certlm.msc in base64 format
 client.connect(hubAddress, 8883)
 
 
