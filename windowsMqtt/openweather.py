@@ -28,7 +28,7 @@ hubTopicPublish = 'devices/' + hubName + '/messages/events/'
 hubTopicSubscribe = 'devices/' + hubName + '/messages/devicebound/#'
 
 sensorLocation = "Melbourne"
-owmLocation = 'Melbourne,AU'
+owmLocation = 'Melbourne, AU'
 iothubConnectionString = 'HostName=IoTCampAU.azure-devices.net;DeviceId=WindowsPython35;SharedAccessKey=GqtVoi57XA3oViEWvHJSX9QNBHho9H747AtgjUdxh1Q='
 openWeather = owm.Weather('c204bb28a2f9dc23925f27b9e21296dd', owmLocation)
 msg_txt = "{\"Geo\":%s,\"Humidity\":%d,\"HPa\":%d,\"Celsius\": %.2f,\"Id\":%d}"
