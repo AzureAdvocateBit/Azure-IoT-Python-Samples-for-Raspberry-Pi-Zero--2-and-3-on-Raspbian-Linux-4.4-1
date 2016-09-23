@@ -1,5 +1,6 @@
 # https://azure.microsoft.com/en-us/documentation/articles/iot-hub-mqtt-support/
 # http://stackoverflow.com/questions/35452072/python-mqtt-connection-to-azure-iot-hub/35473777
+# https://azure.microsoft.com/en-us/documentation/samples/iot-hub-python-get-started/
 
 # Mqtt Support https://www.eclipse.org/paho/clients/python/
 # pip3 install paho-mqtt
