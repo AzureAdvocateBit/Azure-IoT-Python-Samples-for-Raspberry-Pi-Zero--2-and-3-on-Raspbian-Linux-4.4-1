@@ -10,7 +10,6 @@
 import sys
 import paho.mqtt.client as mqtt
 import time
-from datetime import datetime, timedelta
 import base64
 import hmac
 import urllib.parse
@@ -88,15 +87,12 @@ client.on_disconnect = on_disconnect
 client.on_message = on_message
 client.on_publish = on_publish
 
-#client.username_pw_set(hubUser, hubPass)
 client.username_pw_set(hubUser, generate_sas_token(endpoint, SharedAccessKey))
 
 #client.tls_set("ca-certificates.crt") # use builtin cert on Raspbian
 client.tls_set("baltimorebase64.cer") # Baltimore Cybertrust Root exported using certlm.msc in base64 format
 client.connect(hubAddress, 8883)
 
-
-#client.loop_forever()
 client.loop_start()
 
 publish()
