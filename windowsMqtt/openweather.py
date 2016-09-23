@@ -1,7 +1,11 @@
 # https://azure.microsoft.com/en-us/documentation/articles/iot-hub-mqtt-support/
 # http://stackoverflow.com/questions/35452072/python-mqtt-connection-to-azure-iot-hub/35473777
-# https://www.eclipse.org/paho/clients/python/
+
+# Mqtt Support https://www.eclipse.org/paho/clients/python/
 # pip3 install paho-mqtt
+
+# Weather data Open Weather Map using https://github.com/csparpa/pyowm
+# pip3 install pyowm
 
 import sys
 import paho.mqtt.client as mqtt
@@ -52,7 +56,7 @@ def on_message(client, userdata, msg):
     #client.publish("devices/mqtt/messages/events", "REPLY", qos=1)
 
 def on_publish(client, userdata, mid):
-    print("Sent message")
+    print("Sent message: " + str(mid))
 
 def publish():
     id = 0  
