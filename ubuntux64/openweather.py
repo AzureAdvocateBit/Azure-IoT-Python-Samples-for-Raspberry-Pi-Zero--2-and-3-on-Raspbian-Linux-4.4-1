@@ -22,7 +22,7 @@ owmLocation = 'Sydney,AU'
 iothubConnectionString = 'HostName=IoTCampAU.azure-devices.net;DeviceId=UbuntuPython34;SharedAccessKey=32JQMI0quRp69GEosVSUF2tkdq5r0nzi2lPAn1rZckY='
 openWeather = owm.Weather('c204bb28a2f9dc23925f27b9e21296dd', owmLocation)
 iot = iothub.IotHub(iothubConnectionString)
-msg_txt = "{\"Geo\":%s,\"Humidity\":%d,\"HPa\":%d,\"Celsius\": %.2f,\"Id\":%d}"
+msg_txt = "{\"Geo\":\"%s\",\"Humidity\":%d,\"HPa\":%d,\"Celsius\": %.2f,\"Id\":%d}"
 
 
 def callback(message, properties):
