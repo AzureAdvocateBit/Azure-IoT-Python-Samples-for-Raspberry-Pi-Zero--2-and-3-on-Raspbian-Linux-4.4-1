@@ -35,7 +35,7 @@ def on_disconnect(client, userdata, rc):
 def on_message(client, userdata, msg):
     print("{0} - {1} ".format(msg.topic, str(msg.payload)))
     # Do this only if you want to send a reply message every time you receive one
-    #client.publish("devices/mqtt/messages/events", "REPLY", qos=1)
+    # client.publish("devices/mqtt/messages/events", "REPLY", qos=1)
 
 def on_publish(client, userdata, mid):
     print("Message {0} sent from {1}".format(str(mid), hubName))
