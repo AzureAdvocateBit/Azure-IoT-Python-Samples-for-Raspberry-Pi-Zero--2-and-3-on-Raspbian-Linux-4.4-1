@@ -12,14 +12,21 @@
 import paho.mqtt.client as mqtt
 import time
 import helper
-import sensor_openweather as sensor
+import sys
+
+if len(sys.argv) == 4:
+    sensor = __import__(sys.argv[1])  
+    hubName = sys.argv[2]
+    SharedAccessKey = sys.argv[3]
+else:
+    import sensor_openweather as sensor
+    hubName = 'mqtt'
+    SharedAccessKey= 'VZbmLwYjjdg04Gb5SvbNMTq44GdDEO5k5px6OUIu7l8='
+
 
 owmApiKey = 'c204bb28a2f9dc23925f27b9e21296dd'
 owmLocation = 'Melbourne, AU'
-
-hubName = 'mqtt'
 hubAddress = 'IoTCampAU.azure-devices.net'
-SharedAccessKey= 'VZbmLwYjjdg04Gb5SvbNMTq44GdDEO5k5px6OUIu7l8='
 
 mysensor = sensor.Sensor(owmApiKey, owmLocation)
 help = helper.Helper(hubAddress, hubName, SharedAccessKey)
