@@ -4,7 +4,7 @@ import json
 
 class Weather():
 
-    def __init__(self, owmApiKey, owmLocation='Sydney,au', cacheSeconds=60):
+    def __init__(self, owmApiKey, owmLocation='Sydney, au', cacheSeconds=60):
         self._owm = pyowm.OWM(owmApiKey)  # You MUST provide a valid API key
         self.owmLocation = owmLocation
         if cacheSeconds < 0:

@@ -31,7 +31,7 @@ sensorLocation = "Melbourne"
 owmLocation = 'Melbourne, AU'
 iothubConnectionString = 'HostName=IoTCampAU.azure-devices.net;DeviceId=WindowsPython35;SharedAccessKey=GqtVoi57XA3oViEWvHJSX9QNBHho9H747AtgjUdxh1Q='
 openWeather = owm.Weather('c204bb28a2f9dc23925f27b9e21296dd', owmLocation)
-msg_txt = "{\"Geo\":%s,\"Humidity\":%d,\"HPa\":%d,\"Celsius\": %.2f,\"Id\":%d}"
+msg_txt = "{\"Geo\":%s,\"Humidity\":%d,\"HPa\":%d,\"Celsius\": %.2f,\"Light\":%d,\"Id\":%d}"
 
 
 # sas generator from https://github.com/bechynsky/AzureIoTDeviceClientPY/blob/master/DeviceClient.py
@@ -56,7 +56,7 @@ def on_message(client, userdata, msg):
     #client.publish("devices/mqtt/messages/events", "REPLY", qos=1)
 
 def on_publish(client, userdata, mid):
-    print("Sent message: " + str(mid))
+    print("Message {0} sent from {1}".format(str(mid), hubName))
 
 def publish():
     id = 0  
@@ -64,9 +64,10 @@ def publish():
     while True:
         try:
             openWeather.getWeather()
-            id += 1
+            lightLevel = 0
+            id += 1            
 
-            msg_txt_formatted = msg_txt % (sensorLocation, openWeather.humidity, openWeather.pressure, openWeather.temperature, id)
+            msg_txt_formatted = msg_txt % (sensorLocation, openWeather.humidity, openWeather.pressure, openWeather.temperature, lightLevel, id)
             
             client.publish(hubTopicPublish, msg_txt_formatted)
             
