@@ -5,7 +5,7 @@ sleep 10
 
 sudo killall python3
 
-cd /home/pi/iothub/rpi2
+cd /home/pi/iothub/weather_mqtt
 
-python3 weather.py&
+python3 weather_mqtt.py&
 
