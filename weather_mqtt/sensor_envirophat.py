@@ -27,7 +27,7 @@ class Sensor():
             lightLevel = 1024            
         lightLevel = lightLevel * 100 / 1024        
 
-        json = self.msg_txt % (self.sensorLocation, humidity, round(weather.pressure()/100,2),  round(weather.temperature(),2), lightLevel, id)
+        json = self.msg_txt % (self.sensorLocation, humidity, round(weather.pressure()/100,2),  round(weather.temperature(),2), lightLevel, self.id)
         
         leds.off()
         return json
