@@ -12,7 +12,7 @@
 import paho.mqtt.client as mqtt
 import time
 import helper
-import sensor as sensor
+import sensor_openweather as sensor
 
 owmApiKey = 'c204bb28a2f9dc23925f27b9e21296dd'
 owmLocation = 'Melbourne, AU'
