@@ -27,7 +27,7 @@ owmLocation = 'Melbourne,AU'
 iothubConnectionString = 'HostName=IoTCampAU.azure-devices.net;DeviceId=pizero;SharedAccessKey=uJ21qp9LUvlOSipkXusvlRoYwmUDE+4gXyIYS00feZg='
 openWeather = owm.Weather('c204bb28a2f9dc23925f27b9e21296dd', owmLocation)
 iot = iothub.IotHub(iothubConnectionString)
-msg_txt = "{\"Geo\":%s,\"Humidity\":%d,\"HPa\":%d,\"Celsius\": %.2f,\"Id\":%d}"
+msg_txt = "{\"Geo\":\"%s\",\"Humidity\":%d,\"HPa\":%d,\"Celsius\": %.2f,\"Light\":%d,\"Id\":%d}"
 
 sense = SenseHat()
 pubColour = (255,0,255)
@@ -48,9 +48,11 @@ def iothub_client_sample_run():
             sense.clear(pubColour)
 
             openWeather.getWeather()
-            id += 1
+            lightlevel = 0
 
-            msg_txt_formatted = msg_txt % (sensorLocation, sense.get_humidity(), round(sense.get_pressure(),2), round(sense.get_temperature(),2), id)
+            id += 1
+        
+            msg_txt_formatted = msg_txt % (sensorLocation, sense.get_humidity(), round(sense.get_pressure(),2), round(sense.get_temperature(),2), lightlevel, id)
             
             iot.publish(msg_txt_formatted, id)
 

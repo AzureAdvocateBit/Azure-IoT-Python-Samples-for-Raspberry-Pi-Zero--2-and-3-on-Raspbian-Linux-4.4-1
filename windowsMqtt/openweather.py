@@ -1,6 +1,7 @@
 # https://azure.microsoft.com/en-us/documentation/articles/iot-hub-mqtt-support/
 # http://stackoverflow.com/questions/35452072/python-mqtt-connection-to-azure-iot-hub/35473777
 # https://azure.microsoft.com/en-us/documentation/samples/iot-hub-python-get-started/
+# Python 2.7 Sas generator https://azure.microsoft.com/en-us/documentation/articles/iot-hub-sas-tokens/#comments/
 
 # Mqtt Support https://www.eclipse.org/paho/clients/python/
 # pip3 install paho-mqtt
@@ -31,7 +32,7 @@ sensorLocation = "Melbourne"
 owmLocation = 'Melbourne, AU'
 iothubConnectionString = 'HostName=IoTCampAU.azure-devices.net;DeviceId=WindowsPython35;SharedAccessKey=GqtVoi57XA3oViEWvHJSX9QNBHho9H747AtgjUdxh1Q='
 openWeather = owm.Weather('c204bb28a2f9dc23925f27b9e21296dd', owmLocation)
-msg_txt = "{\"Geo\":%s,\"Humidity\":%d,\"HPa\":%d,\"Celsius\": %.2f,\"Light\":%d,\"Id\":%d}"
+msg_txt = "{\"Geo\":\"%s\",\"Humidity\":%d,\"HPa\":%d,\"Celsius\": %.2f,\"Light\":%d,\"Id\":%d}"
 
 
 # sas generator from https://github.com/bechynsky/AzureIoTDeviceClientPY/blob/master/DeviceClient.py

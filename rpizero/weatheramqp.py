@@ -29,7 +29,7 @@ owmLocation = 'Melbourne,AU'
 iothubConnectionString = 'HostName=IoTCampAU.azure-devices.net;DeviceId=pizero;SharedAccessKey=uJ21qp9LUvlOSipkXusvlRoYwmUDE+4gXyIYS00feZg='
 openWeather = owm.Weather('c204bb28a2f9dc23925f27b9e21296dd', owmLocation)
 iot = iothub.IotHub(iothubConnectionString)
-msg_txt = "{\"Geo\":%s,\"Light\":%d,\"HPa\":%d,\"Celsius\": %.2f,\"Id\":%d}"
+msg_txt = "{\"Geo\":\"%s\",\"Humidity\":%d,\"HPa\":%d,\"Celsius\": %.2f,\"Light\":%d,\"Id\":%d}"
 
 
 def callback(message, properties):
@@ -47,7 +47,7 @@ def iothub_client_sample_run():
             leds.on()
 
             openWeather.getWeather()
-            id += 1
+            humidity = 50
 
             ## normalise light to something of 100%
             lightLevel = light.light();
@@ -55,7 +55,9 @@ def iothub_client_sample_run():
                 lightLevel = 1024            
             lightLevel = lightLevel * 100 / 1024
 
-            msg_txt_formatted = msg_txt % (sensorLocation, lightLevel, round(weather.pressure()/100,2),  round(weather.temperature(),2), id)
+            id += 1
+
+            msg_txt_formatted = msg_txt % (sensorLocation, humidity, round(weather.pressure()/100,2),  round(weather.temperature(),2), lightLevel, id)
             
             iot.publish(msg_txt_formatted, id)
 

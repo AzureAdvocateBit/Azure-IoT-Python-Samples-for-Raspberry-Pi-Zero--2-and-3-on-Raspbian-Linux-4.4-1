@@ -42,7 +42,7 @@ protocol = IoTHubTransportProvider.AMQP
 # "HostName=<host_name>;DeviceId=<device_id>;SharedAccessKey=<device_key>"
 connection_string = "HostName=IoTCampAU.azure-devices.net;DeviceId=rpi3dg;SharedAccessKey=KilBOEbpsL8JHg/V6F1i8+3QVLhjr2rlyS1F8/hMc34="
 
-msg_txt = "{\"Geo\": \"Sydney\",\"Humidity\":%d,\"HPa\":%d,\"Light\":%d,\"Celsius\": %.2f,\"Id\":%d}"
+msg_txt = "{\"Geo\":\"%s\",\"Humidity\":%d,\"HPa\":%d,\"Celsius\": %.2f,\"Light\":%d,\"Id\":%d}"
 
 sense = SenseHat()
 pubColour = (255,0,255)
@@ -118,11 +118,11 @@ def iothub_client_sample_run():
             sense.clear(pubColour)
 
             ## normalise light to something of 100%
-            lightLevel = 0;
+            lightLevel = 0
             
             id += 1
 
-            msg_txt_formatted = msg_txt % (sense.get_humidity(), round(sense.get_pressure(),2), lightLevel, round(sense.get_temperature(),2), id)
+            msg_txt_formatted = msg_txt % (sense.get_humidity(), round(sense.get_pressure(),2), lightLevel, round(sense.get_temperature(),2), lightLevel, id)
 
             message = IoTHubMessage(bytearray(msg_txt_formatted, 'utf8'))
         
