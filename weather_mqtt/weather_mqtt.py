@@ -34,7 +34,7 @@ def config_load():
         if len(sys.argv) == 2:
             print('Loading {0} defaults'.format(sys.argv[1]))
 
-            config_data = open('config_openweather.jsonx')
+            config_data = open(sys.argv[1])
             config = json.load(config_data)
 
             sensor = __import__(config['SensorModule']) 
