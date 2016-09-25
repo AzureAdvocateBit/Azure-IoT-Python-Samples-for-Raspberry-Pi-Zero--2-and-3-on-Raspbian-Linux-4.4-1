@@ -19,7 +19,7 @@ sensor = hubAddress = deviceId = sharedAccessKey = owmApiKey = owmLocation = Non
 
 def config_defaults():
     global sensor, hubAddress, deviceId, sharedAccessKey, owmApiKey, owmLocation
-    print('Loading default config')
+    print('Loading default config settings')
 
     import sensor_openweather as sensor
     hubAddress = 'IoTCampAU.azure-devices.net'
@@ -32,7 +32,7 @@ def config_load():
     global sensor, hubAddress, deviceId, sharedAccessKey, owmApiKey, owmLocation
     try:
         if len(sys.argv) == 2:
-            print('Loading {0} defaults'.format(sys.argv[1]))
+            print('Loading {0} settings'.format(sys.argv[1]))
 
             config_data = open(sys.argv[1])
             config = json.load(config_data)
