@@ -1,5 +1,5 @@
 import sys
-sys.path[0:0] = ['../common'] ## path to shared owm.py (open weather map) and iothub.py (azure iot hub python) files
+#sys.path[0:0] = ['../common'] ## path to shared owm.py (open weather map) and iothub.py (azure iot hub python) files
 import owm 
 
 class Sensor():

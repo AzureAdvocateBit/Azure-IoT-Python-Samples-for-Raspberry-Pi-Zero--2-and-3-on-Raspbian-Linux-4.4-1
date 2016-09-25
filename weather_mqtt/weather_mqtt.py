@@ -13,24 +13,40 @@ import paho.mqtt.client as mqtt
 import time
 import helper
 import sys
+import json
 
-if len(sys.argv) == 4:
-    sensor = __import__(sys.argv[1])  
-    hubName = sys.argv[2]
-    SharedAccessKey = sys.argv[3]
-else:
+sensor = hubAddress = deviceId = sharedAccessKey = owmApiKey = owmLocation = None
+
+def config_defaults():
+    global sensor, hubAddress, deviceId, sharedAccessKey, owmApiKey, owmLocation
+    print('Loading default config')
+
     import sensor_openweather as sensor
-    hubName = 'mqtt'
-    SharedAccessKey= 'VZbmLwYjjdg04Gb5SvbNMTq44GdDEO5k5px6OUIu7l8='
+    hubAddress = 'IoTCampAU.azure-devices.net'
+    deviceId = 'mqtt'
+    sharedAccessKey= 'VZbmLwYjjdg04Gb5SvbNMTq44GdDEO5k5px6OUIu7l8='
+    owmApiKey = 'c204bb28a2f9dc23925f27b9e21296dd'
+    owmLocation = 'Melbourne, AU'
 
+def config_load():
+    global sensor, hubAddress, deviceId, sharedAccessKey, owmApiKey, owmLocation
+    try:
+        if len(sys.argv) == 2:
+            print('Loading {0} defaults'.format(sys.argv[1]))
 
-owmApiKey = 'c204bb28a2f9dc23925f27b9e21296dd'
-owmLocation = 'Melbourne, AU'
-hubAddress = 'IoTCampAU.azure-devices.net'
+            config_data = open('config_openweather.jsonx')
+            config = json.load(config_data)
 
-mysensor = sensor.Sensor(owmApiKey, owmLocation)
-help = helper.Helper(hubAddress, hubName, SharedAccessKey)
-
+            sensor = __import__(config['SensorModule']) 
+            hubAddress = config['IotHubAddress']
+            deviceId = config['DeviceId']
+            sharedAccessKey = config['sharedAccessKey']
+            owmApiKey = config['OpenWeatherMapApiKey']
+            owmLocation = config['OpenWeatherMapLocationId']
+        else:
+            config_defaults()
+    except:
+        config_defaults()
 
 def on_connect(client, userdata, flags, rc):
     print("Connected with result code: %s" % rc)
@@ -45,7 +61,7 @@ def on_message(client, userdata, msg):
     # client.publish("devices/mqtt/messages/events", "REPLY", qos=1)
 
 def on_publish(client, userdata, mid):
-    print("Message {0} sent from {1}".format(str(mid), hubName))
+    print("Message {0} sent from {1}".format(str(mid), deviceId))
 
 def publish():
     while True:
@@ -61,15 +77,19 @@ def publish():
             print("Unexpected error")
             time.sleep(4)
 
+config_load()
 
-client = mqtt.Client(hubName, mqtt.MQTTv311)
+mysensor = sensor.Sensor(owmApiKey, owmLocation)
+help = helper.Helper(hubAddress, deviceId, sharedAccessKey)
+
+client = mqtt.Client(deviceId, mqtt.MQTTv311)
 
 client.on_connect = on_connect
 client.on_disconnect = on_disconnect
 client.on_message = on_message
 client.on_publish = on_publish
 
-client.username_pw_set(help.hubUser, help.generate_sas_token(help.endpoint, SharedAccessKey))
+client.username_pw_set(help.hubUser, help.generate_sas_token(help.endpoint, sharedAccessKey))
 
 #client.tls_set("/etc/ssl/certs/ca-certificates.crt") # use builtin cert on Raspbian
 client.tls_set("baltimorebase64.cer") # Baltimore Cybertrust Root exported from Windows 10 using certlm.msc in base64 format

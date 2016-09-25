@@ -1,8 +1,12 @@
 #!/bin/bash
 
-echo setting up IoT Client Startup Services
+echo Setting up Azure IoT Hub Python/MQTT Client Startup Services
 
-sudo chmod +x python3/iothubclient.py
+
+sudo pip3 install pyowm
+sudo pip3 install paho-mqtt
+sudo apt install xrdp
+
 sudo chmod +x startiot.sh
 
 

@@ -22,7 +22,7 @@ owmLocation = 'Sydney,AU'
 iothubConnectionString = 'HostName=IoTCampAU.azure-devices.net;DeviceId=UbuntuPython34;SharedAccessKey=32JQMI0quRp69GEosVSUF2tkdq5r0nzi2lPAn1rZckY='
 openWeather = owm.Weather('c204bb28a2f9dc23925f27b9e21296dd', owmLocation)
 iot = iothub.IotHub(iothubConnectionString)
-msg_txt = "{\"Geo\":\"%s\",\"Humidity\":%d,\"HPa\":%d,\"Celsius\": %.2f,\"Id\":%d}"
+msg_txt = "{\"Geo\":\"%s\",\"Humidity\":%d,\"HPa\":%d,\"Celsius\": %.2f,\"Light\":%d,\"Id\":%d}"
 
 
 def callback(message, properties):
@@ -38,9 +38,10 @@ def iothub_client_sample_run():
     while True:
         try:
             openWeather.getWeather()
+            lightLevel = 0
             id += 1
 
-            msg_txt_formatted = msg_txt % (sensorLocation, openWeather.humidity, openWeather.pressure, openWeather.temperature, id)
+            msg_txt_formatted = msg_txt % (sensorLocation, openWeather.humidity, openWeather.pressure, openWeather.temperature, lightLevel, id)
             iot.publish(msg_txt_formatted, id)
             
             time.sleep(4)
