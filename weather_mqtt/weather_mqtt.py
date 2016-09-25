@@ -40,7 +40,7 @@ def config_load():
             sensor = __import__(config['SensorModule']) 
             hubAddress = config['IotHubAddress']
             deviceId = config['DeviceId']
-            sharedAccessKey = config['sharedAccessKey']
+            sharedAccessKey = config['SharedAccessKey']
             owmApiKey = config['OpenWeatherMapApiKey']
             owmLocation = config['OpenWeatherMapLocationId']
         else:
