@@ -1,3 +1,5 @@
+# Python 2.7 Sas generator https://azure.microsoft.com/en-us/documentation/articles/iot-hub-sas-tokens/#comments/
+
 import base64
 import hmac
 import urllib.parse
@@ -21,7 +23,7 @@ class Helper():
 
 
     # sas generator from https://github.com/bechynsky/AzureIoTDeviceClientPY/blob/master/DeviceClient.py
-    def generate_sas_token(self, uri, key, expiry=4320000): # 50 day expiry
+    def generate_sas_token(self, uri, key, expiry=3600):
         ttl = int(time.time()) + expiry
         urlToSign = urllib.parse.quote(uri, safe='') 
         sign_key = "%s\n%d" % (urlToSign, int(ttl))
